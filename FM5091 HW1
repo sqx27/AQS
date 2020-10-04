@@ -1,0 +1,40 @@
+#Alex Song FM5091 HW1
+#S, the spot price of the asset at time t
+#T, the maturity of the option. Time to maturity is defined as T−t
+#K, strike price of the option
+#r, the risk-free interest rate, assumed to be constant between t and T
+#σ, volatility of underlying asset, the standard deviation of the asset returns
+#N(d), the cumulative distribution of the standard normal variable Z
+#C(S,t), the value at time t of a call option
+#P(S,t), the value at time t of a put option
+
+import math
+from scipy.stats import norm
+S = 500
+K = 400
+T = 2
+r = 0.03
+sigma = 0.15
+
+a1 = lambda a, b: a + b
+a2 = lambda a, b: a - b
+a3 = lambda a, b: a * b
+a4 = lambda a, b: a / b
+a5 = lambda a, b: a ** b
+a6 = lambda a: math.sqrt(a)
+a7 = lambda a: math.log(a)
+a8 = lambda a: math.exp(a)
+a9 = lambda a: a ** 2 / 2
+a10 = lambda a, b, c: (a - b) * c
+a11 = lambda a, b, c: (a + b) * c
+a12 = lambda a: norm.cdf(a, 0, 1)
+a13 = lambda a, b, c: a * b * c
+
+d1 = a4(a1(a7(a4(S,K)),a11(r, a9(sigma), T)), a3(sigma, a6(T)))
+d2 = a2(d1, a3(sigma,a6(T)))
+
+call = a2(a3(S,a12(d1)), a13(K, a8(-a3(r,T)),a12(d2)))
+put = a2(a13(K,a8(-a3(r,T)),a12(-d2)),a3(S,a12(-d1)))
+
+print(call)
+print(put)
